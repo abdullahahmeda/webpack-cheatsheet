@@ -1,0 +1,113 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #ddd;
+    font-family: 'Noto Sans JP', sans-serif;
+    counter-reset: sections-counter;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.mt-1 {
+    margin-top: 1rem !important;
+}
+
+.container {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    align-items: start;
+}
+
+@media (min-width: 768px) {
+    .container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.section {
+    position: relative;
+    background-color: #f2f2f2;
+    padding: 1rem;
+    border-radius: 5px;
+    counter-increment: sections-counter;
+    counter-reset: sub-sections-counter;
+}
+
+.section::after {
+    content: counter(sections-counter);
+    font-family: 'Noto Sans JP', sans-serif;
+    position: absolute;
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+    background-color: #ccc;
+    text-align: center;
+    line-height: 40px;
+    font-size: 0.8rem;
+    border-radius: 50%;
+    right: 1rem;
+    top: 10px
+}
+
+.section-title {
+    margin: 0;
+}
+
+.sub-section {
+    background-color: #ddd;
+    padding: 1rem;
+    padding-right: 1rem;
+    position: relative;
+    counter-increment: sub-sections-counter;
+    margin-top: 1rem;
+    border-radius: 5px;
+}
+
+.sub-section.problem {
+    background-color: #f3cece;
+}
+
+.sub-section.solution {
+    background-color: #d3edb3;
+}
+
+.sub-section.info {
+    background-color: #cad1e8;
+}
+
+.sub-section-title {
+    margin: 0;
+    padding-bottom: 1rem;
+}
+
+.sub-section-text {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #212121;
+}
+
+.sub-section::after {
+    content: counter(sections-counter) '. ' counter(sub-sections-counter);
+    font-family: 'Noto Sans JP', sans-serif;
+    position: absolute;
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+    background-color: #ccc;
+    text-align: center;
+    line-height: 40px;
+    font-size: 0.8rem;
+    border-radius: 50%;
+    right: 1rem;
+    top: 10px
+}
+
+
+.hljs {
+    white-space: pre-line;
+}
