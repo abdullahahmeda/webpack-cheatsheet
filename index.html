@@ -10,100 +10,203 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+    <!-- <h1>Webpack Cheatsheet</h1> -->
     <div class="container">
-        <section class="section">
-            <h2 class="section-title">Introduction</h2>
-            <div class="sub-section">
-                <h3 class="sub-section-title">What is webpack?</h3>
-                <p class="sub-section-text">Webpack is a module bundler for javascript. It bundles your assets into one file (or many files, as you wish). It also manages dependencies for your files.</p>
-            </div>
-            <div class="sub-section problem">
-                <h3 class="sub-section-title">Problem</h3>
-                <p class="sub-section-text">Let's consider the bundling problem. If you don't use webpack, then your scripts will look like this:</p>
-                <pre><code class="language-html">&lt;script src="js/jquery.min.js"&gt;&lt;/script&gt;
-                    &lt;script src="js/popper.min.js"&gt;&lt;/script&gt;
-                    &lt;script src="js/bootstrap.min.js"&gt;&lt;/script&gt;
-                    &lt;script src="js/formValidator.min.js"&gt;&lt;/script&gt;
-                    &lt;script src="js/someOtherScript.min.js"&gt;&lt;/script&gt;
-                    &lt;!-- And +10 other scripts --&gt;
-                </code></pre>
-                <p class="sub-section-text">Of course this is a big problem for couple of reasons. First, it is very slow and boring process to add script tags for every new file. Second, it makes the page load slower for HTTP 1.1, because it increases the queue time.</p>
-                <p class="sub-section-text mt-1">Now, let's see the other problem, which is managing dependencies:</p>
-                <pre><code class="language-html">&lt;!-- scripts that depend on jquery --&gt;
-                    &lt;script src="js/formValidator.min.js"&gt;&lt;/script&gt;
-                    &lt;script src="js/jquery-ui.min.js"&gt;&lt;/script&gt;
-                    &lt;script src="js/alertScript.min.js"&gt;&lt;/script&gt;
+        <h1 class="text-center">Webpack Cheatsheet</h1>
+        <p class="text-center">By <a href="#!">Abdullah Ahmed</a></p>
+        <div class="sections-grid">
+            <!-- <section class="section">
+                <h2 class="section-title">Introduction</h2>
+                <div class="sub-section">
+                    <h3 class="sub-section-title">What is webpack?</h3>
+                    <p class="sub-section-text">Webpack is a module bundler for javascript. It bundles your assets into one file (or many files, as you wish). It also manages dependencies for your files.</p>
+                </div>
+                <div class="sub-section problem">
+                    <h3 class="sub-section-title">Problem</h3>
+                    <p class="sub-section-text">Let's consider the bundling problem. If you don't use webpack, then your scripts will look like this:</p>
+                    <pre><code class="language-html">&lt;script src="js/jquery.min.js"&gt;&lt;/script&gt;
+                        &lt;script src="js/popper.min.js"&gt;&lt;/script&gt;
+                        &lt;script src="js/bootstrap.min.js"&gt;&lt;/script&gt;
+                        &lt;script src="js/formValidator.min.js"&gt;&lt;/script&gt;
+                        &lt;script src="js/someOtherScript.min.js"&gt;&lt;/script&gt;
+                        &lt;!-- And +10 other scripts --&gt;
+                    </code></pre>
+                    <p class="sub-section-text">Of course this is a big problem for couple of reasons. First, it is very slow and boring process to add script tags for every new file. Second, it makes the page load slower for HTTP 1.1, because it increases the queue time.</p>
+                    <p class="sub-section-text mt-1">Now, let's see the other problem, which is managing dependencies:</p>
+                    <pre><code class="language-html">&lt;!-- scripts that depend on jquery --&gt;
+                        &lt;script src="js/formValidator.min.js"&gt;&lt;/script&gt;
+                        &lt;script src="js/jquery-ui.min.js"&gt;&lt;/script&gt;
+                        &lt;script src="js/alertScript.min.js"&gt;&lt;/script&gt;
+    
+                        &lt;script src="js/jquery.min.js"&gt;&lt;/script&gt; &lt;!-- Oops :( --&gt;
+    
+                        &lt;script src="js/main.js"&gt;&lt;/script&gt;
+                    </code></pre>
+                    <p class="sub-section-text">Although it is very clear in this example (for demonstration purposes), in real-world projects it will be much more complicated. If you don't use webpack, you must be very careful when you add your scripts to make sure that every script had their dependencies loaded first. Here, our files won't work as expected because the scripts that depend on jquery came before jquery got added. Hence, these scripts won't work.</p>
+                </div>
+                <div class="sub-section solution">
+                    <h3 class="sub-section-title">Solution</h3>
+                    <p class="sub-section-text">Thanks to webpack, You can now do this:</p>
+                    <pre><code class="language-html">&lt;script src="main.bundle.js"&gt;&lt;/script&gt; &lt;!-- This contains all your dependencies & your code --&gt;</code></pre>
+                    <p class="sub-section-text">You might wonder what <code class="nohighlight">main.bundle.js</code> contains. Well, it looks like this:</p>
+                    <pre><code class="language-js">import jQuery from 'jquery'
+                        import bootstrap from 'bootstrap'
+                        import formValidator from 'formValidator'
+                        // import other friends
+    
+                        // My code...
+                        console.log('hello, word!');
+                    </code></pre>
+                </div>
+            </section> -->
+            <section class="section">
+                <h2 class="section-title">Installation & Basic concepts</h2>
+                <p>First, make sure you have <a href="https://nodejs.org/en/">Node.js</a> installed. Then, go to your project in the terminal and run:</p>
+                <pre><code class="plaintext">npm install --save-dev webpack webpack-cli</code></pre>
+                <div class="sub-section info">
+                    <h3 class="sub-section-title">New concept: entries</h3>
+                    <p class="sub-section-text"><strong>Entries</strong> or <strong>entry points</strong> are the files that webpack will look for to make your final file (or files) from.</p>
+                </div>
+            </section>
+            <!--<section class="section">
+                <h2 class="section-title">Migrating to webpack</h2>
+                <div class="sub-section">
+                    <h3 class="sub-section-title">How to use webpack?</h3>
+                    <p class="sub-section-text">To use webpack, You must first make your project be able to use node packages</p>
+                </div>
+                <div class="sub-section info">
+                    <h3 class="sub-section-title">Steps</h3>
+                    <p class="sub-section-text">Let's say that your project structure is like so:</p>
+                    <pre><code class="plaintext">my-old-project/
+                            &nbsp; index.html
+    
+                            &nbsp; css/
+                                &nbsp;&nbsp; themes.css
+                                &nbsp;&nbsp; rtl.css
+                                &nbsp;&nbsp; styles.css
+    
+                            &nbsp; js/
+                                &nbsp;&nbsp; jquery.min.js
+                                &nbsp;&nbsp; bootstrap.min.js
+                                &nbsp;&nbsp; formValidator.min.js
+                                &nbsp;&nbsp; main.js
+                    </code></pre>
+                    <p class="sub-section-text">Now, we will add initialize a node project in our project, go with your terminal to your project and then type:</p>
+                    <pre><code class="bash">user@me:~/my-old-project$ npm init -y</code></pre>
+                    <p class="sub-section-text">And then install webpack (and its CLI):</p>
+                    <pre><code class="bash">user@me:~/my-old-project$ npm i -D webpack webpack-cli</code></pre>
+                    <p class="sub-section-text">Your project structure will now look like this:</p>
+                    <pre><code class="diff">my-old-project/
+                        &nbsp; index.html
+    
+                        &nbsp; + package.json
+                        &nbsp; + package-lock.json
+                        &nbsp; + node_modules/
+    
+                        &nbsp; css/
+                            &nbsp;&nbsp; themes.css
+                            &nbsp;&nbsp; rtl.css
+                            &nbsp;&nbsp; styles.css
+    
+                        &nbsp; js/
+                            &nbsp;&nbsp; jquery.min.js
+                            &nbsp;&nbsp; bootstrap.min.js
+                            &nbsp;&nbsp; formValidator.min.js
+                            &nbsp;&nbsp; main.js
+                    </code></pre>
+                    <p class="sub-section-text">Your project structure will now look like this:</p>
+                </div>
+            </section>-->
+            <section class="section">
+                <h2 class="section-title">Without Configuration</h2>
+                <p>As of version 4, webpack doesn't require any configuration. but most projects will need a more complex setup, which is why webpack supports a configuration file.</p>
+                <p>Webpack by defaut will look for the defaut entry point.</p>
+                <div class="sub-section">
+                    <h3 class="sub-section-title">What is the default entry for webpack?</h3>
+                    <p class="sub-section-text">The default entry for webpack is <code class="nohighlight">/src/index.js</code></p>
+                </div>
+                <div class="sub-section">
+                    <h3 class="sub-section-title">What happens if the default entry is not found?</h3>
+                    <p class="sub-section-text">You shoud see an error from webpack that looks like this:</p>
+                    <pre><code >Error: Can't resolve './src' in 'my-project'</code></pre>
+                </div>
+                <div class="sub-section">
+                    <h3 class="sub-section-title">What happens if the default entry is found?</h3>
+                    <p class="sub-section-text">Webpack will create a new directory called <code class="nohighlight">dist/</code>. Inside it you will see a file called <code class="nohighlight">main.js</code> where all your code in <code class="nohighlight">src/index.js</code> has been bundled.</p>
+                </div>
+            </section>
+            <section class="section">
+                <h2 class="section-title">Configuration</h2>
+                <p>As said earlier, webpack requires configuration for most projects to get the most of it.</p>
+                <div class="sub-section">
+                    <h3 class="sub-section-title">How to create a configuration file for webpack?</h3>
+                    <p class="sub-section-text">Just create a file called <code class="nohighlight">webpack.config.js</code> in the root of your project</p>
+                </div>
+                <div class="sub-section">
+                    <h3 class="sub-section-title">What is the configuration that is equivalent to the default behavior (ie. without configuration)?</h3>
+                    <p class="sub-section-text">The equivalent configuration to the default behavior that looks for <code class="nohighlight">src/index.js</code> as an entry point looks like this:</p>
+                    <pre><code class="language-js">const path = require('path');
+                        module.exports = {
+                        &nbsp; entry: './src/index.js',
+                        &nbsp; output: {
+                        &nbsp;&nbsp; filename: 'main.js',
+                        &nbsp;&nbsp; path: path.resolve(__dirname, 'dist')
+                        &nbsp; }
+                    }
+                    </code></pre>
+                </div>
+            </section>
+            <!-- <section class="section section-full-width">
+                <h2 class="section-title">What is done so far</h2>
+                <p class="section-title">We knew what is webpack, how to install it and how to configure it for the most basic usage. But this is no everything. We can even go further</p>
 
-                    &lt;script src="js/jquery.min.js"&gt;&lt;/script&gt; &lt;!-- Oops :( --&gt;
+            </section> -->
 
-                    &lt;script src="js/main.js"&gt;&lt;/script&gt;
-                </code></pre>
-                <p class="sub-section-text">If you don't use webpack, you must be very careful when you add your scripts to make sure that every script had their dependencies loaded. Here, our files won't work as expected because the scripts that depend on jquery came before jquery got added. Hence, these scripts won't work.</p>
-            </div>
-            <div class="sub-section solution">
-                <h3 class="sub-section-title">Solution</h3>
-                <p class="sub-section-text">Thanks to webpack, You can now do this:</p>
-                <pre><code class="language-html">&lt;script src="main.bundle.js"&gt;&lt;/script&gt; &lt;!-- This contains all your dependencies & your code --&gt;</code></pre>
-                <p class="sub-section-text">You might wonder what <code class="nohighlight">main.bundle.js</code> contains. Well, it looks like this:</p>
-                <pre><code class="language-js">import jQuery from 'jquery'
-                    import bootstrap from 'bootstrap'
-                    import formValidator from 'formValidator'
-                    // import other friends
+            <section class="section">
+                <h2 class="section-title">Webpack with CSS</h2>
+                <p>In your <code class="nohighlight">src/index.js</code> file add this line at the top of the file:</p>
+                <pre><code class="language-js">import './styles.css'</code></pre>
+                <p>Now bundle with webpack</p>
+                <p>Of course, <code class="nohighlight">styles.css</code> has to be in <code class="nohighlight">src/</code> directory.</p>
+                <div class="sub-section">
+                    <h3 class="sub-section-title">What will happen?</h3>
+                    <p class="sub-section-text">The following error will arise:</p>
+                    <pre><code>ERROR in ./src/styles.css 1:5
+                        Module parse failed: Unexpected token (1:5)
+                        You may need an appropriate loader to handle this file type, currently no loaders are configured to process this file. See https://webpack.js.org/concepts#loaders
+                    </code></pre>
+                </div>
+                <div class="sub-section solution">
+                    <h3 class="sub-section-title">Solution</h3>
+                    <p class="sub-section-text">You have to install <code class="nohighlight">style-loader</code> and <code class="nohighlight">css-loader</code>. In your project with your terminal run:</p>
+                    <pre><code class="plaintext">npm install --save-dev css-loader style-loader</code></pre>
+                    <p class="sub-section-text">And in your <code class="nohighlight">webpack.config.js</code> add these lines:</p>
+                    <pre><code>const path = require('path');
+                        module.exports = {
+                        &nbsp; entry: './src/index.js',
+                        &nbsp; output: {
+                        &nbsp;&nbsp; filename: 'main.js',
+                        &nbsp;&nbsp; path: path.resolve(__dirname, 'dist')
+                        &nbsp; },
 
-                    // My code...
-                    console.log('This is webpack :)');
-                </code></pre>
-            </div>
-        </section>
-        <section class="section">
-            <h2 class="section-title">Migrating to webpack</h2>
-            <div class="sub-section">
-                <h3 class="sub-section-title">How to use webpack?</h3>
-                <p class="sub-section-text">To use webpack, You must first make your project be able to use node packages</p>
-            </div>
-            <div class="sub-section info">
-                <h3 class="sub-section-title">Steps</h3>
-                <p class="sub-section-text">Let's say that your project structure is like so:</p>
-                <pre><code class="plaintext">my-old-project/
-                        &nbsp;&nbsp; index.html
-
-                        &nbsp;&nbsp; css/
-                            &nbsp;&nbsp;&nbsp;&nbsp; themes.css
-                            &nbsp;&nbsp;&nbsp;&nbsp; rtl.css
-                            &nbsp;&nbsp;&nbsp;&nbsp; styles.css
-
-                        &nbsp;&nbsp; js/
-                            &nbsp;&nbsp;&nbsp;&nbsp; jquery.min.js
-                            &nbsp;&nbsp;&nbsp;&nbsp; bootstrap.min.js
-                            &nbsp;&nbsp;&nbsp;&nbsp; formValidator.min.js
-                            &nbsp;&nbsp;&nbsp;&nbsp; main.js
-                </code></pre>
-                <p class="sub-section-text">Now, we will add initialize a node project in our project, go with your terminal to your project and then type:</p>
-                <pre><code class="bash">user@me:~/my-old-project$ npm init -y</code></pre>
-                <p class="sub-section-text">And then install webpack (and its CLI):</p>
-                <pre><code class="bash">user@me:~/my-old-project$ npm i -D webpack webpack-cli</code></pre>
-                <p class="sub-section-text">Your project structure will now look like this</p>
-                <pre><code class="diff">my-old-project/
-                    &nbsp;&nbsp; index.html
-
-                    &nbsp;&nbsp; + package.json
-                    &nbsp;&nbsp; + package-lock.json
-                    &nbsp;&nbsp; + node_modules/
-
-                    &nbsp;&nbsp; css/
-                        &nbsp;&nbsp;&nbsp;&nbsp; themes.css
-                        &nbsp;&nbsp;&nbsp;&nbsp; rtl.css
-                        &nbsp;&nbsp;&nbsp;&nbsp; styles.css
-
-                    &nbsp;&nbsp; js/
-                        &nbsp;&nbsp;&nbsp;&nbsp; jquery.min.js
-                        &nbsp;&nbsp;&nbsp;&nbsp; bootstrap.min.js
-                        &nbsp;&nbsp;&nbsp;&nbsp; formValidator.min.js
-                        &nbsp;&nbsp;&nbsp;&nbsp; main.js
-                </code></pre>
-            </div>
-        </section>
+                        &nbsp; module: {
+                        &nbsp;&nbsp; rules: [
+                        &nbsp;&nbsp;&nbsp; {
+                        &nbsp;&nbsp;&nbsp;&nbsp; test: /.css$/,
+                        &nbsp;&nbsp;&nbsp;&nbsp; use: [
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'style-loader',
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'css-loader'
+                        &nbsp;&nbsp;&nbsp;&nbsp; ]
+                        &nbsp;&nbsp;&nbsp; }
+                        &nbsp;&nbsp; ]
+                        &nbsp; }
+                    }
+                    </code></pre>
+                    <p class="sub-section-text">Be careful because the order of <code>['style-loader', 'css-loader']</code> matters.</p>
+                    <p class="sub-section-text">Now, your css should be loaded (and from javascript!)</p>
+                </div>
+            </section>
+        </div>
     </div>
     <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/highlight.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>

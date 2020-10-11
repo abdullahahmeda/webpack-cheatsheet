@@ -4,12 +4,20 @@ body {
     background-color: #ddd;
     font-family: 'Noto Sans JP', sans-serif;
     counter-reset: sections-counter;
-    padding-top: 2rem;
     padding-bottom: 2rem;
+}
+
+.my-0 {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
 }
 
 .mt-1 {
     margin-top: 1rem !important;
+}
+
+.text-center {
+    text-align: center;
 }
 
 .container {
@@ -17,6 +25,9 @@ body {
     padding-left: 15px;
     margin-right: auto;
     margin-left: auto;
+}
+
+.sections-grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 1rem;
@@ -24,7 +35,7 @@ body {
 }
 
 @media (min-width: 768px) {
-    .container {
+    .sections-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 }
@@ -36,6 +47,10 @@ body {
     border-radius: 5px;
     counter-increment: sections-counter;
     counter-reset: sub-sections-counter;
+}
+
+.section-full-width {
+    grid-column: span 2;
 }
 
 .section::after {
@@ -56,6 +71,7 @@ body {
 
 .section-title {
     margin: 0;
+    padding-right: 40px;
 }
 
 .sub-section {
@@ -83,6 +99,7 @@ body {
 .sub-section-title {
     margin: 0;
     padding-bottom: 1rem;
+    padding-right: 40px;
 }
 
 .sub-section-text {
